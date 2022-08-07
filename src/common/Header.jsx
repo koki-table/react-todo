@@ -1,5 +1,5 @@
 
-const AddTodo = () => {
+const Header = () => {
 
     return (
         <header className='header'>
@@ -8,4 +8,4 @@ const AddTodo = () => {
     );
 };
 
-export default AddTodo;
+export default Header;

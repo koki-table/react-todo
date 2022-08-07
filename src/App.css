@@ -104,7 +104,7 @@
 }
 
 /* モーダル */
-#overlay{
+.overlay{
 /*　画面全体を覆う設定　*/
     position:fixed;
     top:0;
@@ -117,11 +117,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 
-#content{
+.content{
     z-index:2;
     width:50%;
     padding: 1em;
     background:#fff;
+}
+
+/* 複数モーダルサンプル */
+.modal{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width:300px;
+    height:50%;
+    max-height:200px;
+    background-color: #FBF7F0;
+    box-shadow: 0 3px 6px 3px rgba(107,107,107,.10);
+    color: #555555;
+    border-radius: 10px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+button{
+    width: auto;
+    height: 40px;
+    border-radius: 10px;
+    color: #555555;
+    background-color: #C4D7D3;
+    border: none;
+    box-shadow: 0 3px 6px 3px rgba(107,107,107,.10);
+    margin: 20px;
+}
+
+.modal-content{
+    color: #555555;
 }
