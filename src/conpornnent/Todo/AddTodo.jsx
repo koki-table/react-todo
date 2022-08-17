@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import { useForm } from 'react-hook-form'
 
-const AddTodo = ({ setTodos }) => {
+const AddTodo = ({ setTodos, detailTodos, setDetailTodos }) => {
     // const { register } = useForm();
     
     const [task, setTask] = useState('');
@@ -11,13 +11,16 @@ const AddTodo = ({ setTodos }) => {
     };
     
     const handleSubmit = (event) => { 
-    event.preventDefault();
-    if (task === '') {
-        alert('入力必須');
-        return;
-    }; 
-    setTodos((todos) => [...todos, { task, isCompleted: false }]);
-    setTask('');
+        event.preventDefault();
+        if (task === '') {
+            alert('入力必須');
+            return;
+        }; 
+
+        // モーダルの中の詳細テキストの初期値を入力
+        setDetailTodos((detailTodos) => [...detailTodos, { detailTask: 'サンプルテキストAddTodo' }]);
+        setTodos((todos) => [...todos, { task, isCompleted: false }]);
+        setTask('');
     };
 
     return (

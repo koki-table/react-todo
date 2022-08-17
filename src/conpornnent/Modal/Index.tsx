@@ -9,6 +9,9 @@ type ModalProps = {
     detailTodos: any,
     setDetailTodos: any,
     index: any,
+    modalButton: number,
+    detailTask:string,
+    setDetailTask:string,
 }
 
 const Modal = ( props: ModalProps ) => {
@@ -16,18 +19,15 @@ const Modal = ( props: ModalProps ) => {
         props.setShow(false)
     }
 
-    if (props.show) {
+    if (props.show && props.index === props.modalButton) {
         return (
-            // {props.todos.map((index) => (
-            <div id={`modal-target-${props.index + 1}`} className='overlay' onClick={closeModal}>
+            <div key={props.index} id={`modal-target-${props.index + 1}`} className='overlay' onClick={closeModal}>
                 <div className='content' onClick={(e) => e.stopPropagation()}>
-                    {/* <p>{props.content}</p> */}
 
-                    <AddDetailTodo detailTodos={props.detailTodos} setDetailTodos={props.setDetailTodos}/>
+                    <AddDetailTodo detailTodos={props.detailTodos} setDetailTodos={props.setDetailTodos} index={props.index} detailTask={props.detailTask} setDetailTask={props.setDetailTask}/>
                     <button onClick={() => props.setShow(false)}>Close</button>
                 </div>
             </div>
-            // ))}
         );
         } else {
         return null;

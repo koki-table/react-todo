@@ -1,51 +1,46 @@
-import React from 'react';
+// import React, { useEffect } from 'react';
 import Modal from "../Modal/Index";
 import { useState } from 'react';
-import ModalSample from "../ModalSample/Index";
 
-
-const TodoList = ({ todos, setTodos }) => {
+const TodoList = ({ todos, setTodos, detailTodos, setDetailTodos }) => {
 
     // 追加したタスクを消す
     const handleRemoveTask = (index) => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
+
+    setDetailTodos(
+        detailTodos.filter((detailTodo, detailTodoIndex) => (detailTodoIndex !== index))
+    )
     };
 
     // タスク完了のチェック
     const handleUpdateTask = (index) => {
+
+        // todos.mapですべてのtodoをループで確認
         const newTodos = todos.map((todo, todoIndex) => {
+            // 引数で渡しているindex番号に合うtodoに対して、
             if (todoIndex === index) {
+            // todo.isCompletedを!todo.isCompletedに代入して、変数に入れ込んでいる
             todo.isCompleted = !todo.isCompleted;
             }
+            // 同じindex番号以外の場合は、todo.isCompletedの状態のまま返り値として返している
             return todo;
         });
         setTodos(newTodos);
     };
 
-    // モーダル
     const [show, setShow] = useState(false);
-    const openModal = () => {
+    const [modalButton, setmodalButton] = useState(0);
+
+    const [detailTask, setDetailTask] = useState('');
+
+    // モーダルを開く際に「タスク完了のチェック」を参考に条件分岐で、同じindex番号のみtrueにする
+    const openModal = function(index) {
+        setmodalButton(index)
         setShow(true)
     }
-
-    // モーダルの中の詳細テキスト
-    const initialState = [
-        {
-            detailTask: 'sample',
-            isCompleted: false
-        },   
-    ]
-    
-    const [detailTodos, setDetailTodos] = useState(initialState);
-    
-    // 複数のモーダルを扱う際にtrue・falseではなく『名前』で管理する。
-    // const MODALS = {
-    //     DEFAULT: "default",
-    //     TEST1: "test1",
-    //     TEST2: "test2"
-    // }
 
     return (
         <div className='task-list inner'>
@@ -79,16 +74,12 @@ const TodoList = ({ todos, setTodos }) => {
 
                         {/* モーダル */}
                         <div>
-                            {/* <button onClick={() => setShow(true)}>Click</button> */}
-                            <button id={`modal-trigger-${index + 1}`} onClick={openModal}>詳細</button>
-                            {/* <Modal show={show} setShow={setShow} content=''/> */}
-                            <Modal index={index} show={show} setShow={setShow} detailTodos={detailTodos} setDetailTodos={setDetailTodos}/>
+                            <button id={`modal-trigger-${index + 1}`} onClick={() => openModal(index)}>モーダル開く</button>
+                            <Modal index={index} show={show} setShow={setShow} modalButton={modalButton} detailTodos={detailTodos} setDetailTodos={setDetailTodos} detailTask={detailTask} setDetailTask={setDetailTask}/>
                         </div>
-                        <ModalSample index={index}/>
                     </li>
                 ))}
             </ul>
-
         </div>
     );
 };

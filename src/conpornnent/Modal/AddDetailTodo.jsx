@@ -1,14 +1,11 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 // import { useForm } from 'react-hook-form'
 
-const AddDetailTodo = ({ detailTodos, setDetailTodos }) => {
+const AddDetailTodo = ({ index, detailTodos, setDetailTodos, detailTask, setDetailTask }) => {
     // const { register } = useForm();
-        
-    const [detailTask, setDetailTask] = useState('');
-
     
+    // 入力フォームにタスクを入力するからDetailTask
     const handleNewTask = (event) => {
-        console.log(event.target.value)
         setDetailTask(event.target.value);
     };
     
@@ -20,32 +17,36 @@ const AddDetailTodo = ({ detailTodos, setDetailTodos }) => {
             return;
         }; 
 
-        // setDetailTaskで追加した内容をsetDetailTodosを使って、detailTodosに登録
-        console.log(...detailTodos);
-        setDetailTodos((detailTodos) => [...detailTodos, { detailTask, isCompleted: false }]);
+        console.log(index);
+
+        setDetailTodos(
+            detailTodos.map((detailTodo, detailTodoIndex) => (detailTodoIndex === index ? { detail : detailTask } : detailTodo))
+        )
 
         setDetailTask('');
     };
+
+    // detailAreaの初期値
+    function initDetailArea() {
+        return <li>{ detailTodos[index].detail }</li>
+    }
+
+    function DetailAreaFilter() {
+        return  initDetailArea()
+    }
 
     return (
         <div>
             <form className='input-form' onSubmit={handleSubmit}>
                 <div className='inner'>
                     <input  id='todo-input' className='input' value={detailTask} placeholder="詳細を入力してください。" 
-                    // {...register('inputText', { required: true })}
                     onChange={handleNewTask}/>
     
-                    <button id="add-button" className='btn' onChange={handleNewTask}>追加</button>
-    
-    
+                    <button id="add-button" className='btn' onChange={handleNewTask}>更新</button>
                 </div>
             </form>
-
-            {/* <p>{detailTask}</p> */}
             <ul>
-                { detailTodos.map((todo, index) => (
-                <li key={ index }>{ todo.detailTask }</li>
-                ))}
+                {DetailAreaFilter()}
             </ul>
         </div>
     );

@@ -19,18 +19,23 @@ const Todo = () => {
 
   const [todos, setTodos] = useState(initialState);
 
-  // // モーダル
-  // const [show, setShow] = useState(false);
-  // const openModal = () => {
-  //   setShow(true)
-  // }
+  // モーダルの中の詳細テキスト
+  const detailInitialState = [
+      {
+          detail: 'サンプルテキスト01'
+      },
+      {
+          detail: 'サンプルテキスト02'
+      },
+  ]
+  
+  const [detailTodos, setDetailTodos] = useState(detailInitialState);
 
   return (
     <div>
       <Header />
-      {/* <RemoveButton/> */}
-      <TodoList todos={todos} setTodos={setTodos} />
-      <AddTodo setTodos={setTodos} />
+      <TodoList todos={todos} setTodos={setTodos} detailTodos={detailTodos} setDetailTodos={setDetailTodos}/>
+      <AddTodo setTodos={setTodos} detailTodos={detailTodos} setDetailTodos={setDetailTodos}/>
     </div>
   );
 };
