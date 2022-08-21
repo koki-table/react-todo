@@ -7,3 +7,5 @@ typescript v4.5.5
 `npm installを実行した後、`package.json`の`scripts`を確認してください。
 
 エラーが出た場合は`npm install -g npm`にて対応
+
+firebase使用にはディレクトリ直下に.env.localファイル（firebase初期設定記載）が必要
