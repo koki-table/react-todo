@@ -2,8 +2,7 @@ import { useState } from 'react';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import Header from '../../common/Header';
-// import Modal from "./Modal";
-// import RemoveButton from './../Parts/RemoveButton';
+// import Auth from '../../firebase/auth/firebase.auth';
 
 const Todo = () => {
   const initialState = [
@@ -30,6 +29,7 @@ const Todo = () => {
   ]
   
   const [detailTodos, setDetailTodos] = useState(detailInitialState);
+
 
   return (
     <div>
