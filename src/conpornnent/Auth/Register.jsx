@@ -8,6 +8,9 @@ import { firebaseApp } from "../../firebase/firebase.config";
 /* 「Link」をimport↓ */
 import { Navigate, Link } from "react-router-dom";
 
+// eslint-disable-next-line no-unused-vars
+import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, orderBy, limit, endAt, getDoc, getDocFromCache, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
+
 const Register = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -19,11 +22,20 @@ const Register = () => {
       await createUserWithEmailAndPassword(
         firebaseApp.fireauth,
         registerEmail,
-        registerPassword
+        registerPassword,
+        console.log("ffff")
       );
     } catch(error) {
       alert("正しく入力してください");
     }
+
+    // database(firestoreの登録)
+    const usersCollectionRef = collection(firebaseApp.firestore, 'users');
+    // eslint-disable-next-line no-unused-vars
+    const documentRef = addDoc(usersCollectionRef, {
+      mail: registerEmail,
+      password: registerPassword,
+    });
   };
 
   const [user, setUser] = useState("");

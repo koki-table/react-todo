@@ -1,15 +1,20 @@
 // import { useState } from 'react';
 // import { useForm } from 'react-hook-form'
+import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, orderBy, limit, endAt, getDoc, getDocFromCache, updateDoc, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
+import { firebaseApp } from "../../firebase/firebase.config";
 
-const AddDetailTodo = ({ index, detailTodos, setDetailTodos, detailTask, setDetailTask }) => {
+const AddDetailTodo = ({ index, detailTodos, setDetailTodos, detailTask, setDetailTask, userData, setuserData, todos, setTodos }) => {
     // const { register } = useForm();
+
+    // database(firestoreの参照)
+    const firestoreTodos = collection(firebaseApp.firestore, 'users', userData, 'todo');
     
     // 入力フォームにタスクを入力するからDetailTask
     const handleNewTask = (event) => {
         setDetailTask(event.target.value);
     };
     
-    const handleSubmit = (event) => { 
+    const handleSubmit = async(event) => { 
         event.preventDefault();
 
         if (detailTask === '') {
@@ -17,22 +22,24 @@ const AddDetailTodo = ({ index, detailTodos, setDetailTodos, detailTask, setDeta
             return;
         }; 
 
-        console.log(index);
-
-        setDetailTodos(
-            detailTodos.map((detailTodo, detailTodoIndex) => (detailTodoIndex === index ? { detail : detailTask } : detailTodo))
+        // todoのstateにdetailTaskを登録
+        setTodos(
+            todos.map((todo, todoIndex) => (todoIndex === index ? { detail : detailTask, isCompleted: todo.isCompleted, task : todo.task } : todo))
         )
+
+        console.log(todos[index].task);
+
+        // firestoreのフィールド更新
+        await updateDoc(doc(firestoreTodos, todos[index].task),{
+            detail: detailTask,
+        });
 
         setDetailTask('');
     };
 
     // detailAreaの初期値
     function initDetailArea() {
-        return <li>{ detailTodos[index].detail }</li>
-    }
-
-    function DetailAreaFilter() {
-        return  initDetailArea()
+        return <li>{ todos[index].detail }</li>
     }
 
     return (
@@ -46,7 +53,7 @@ const AddDetailTodo = ({ index, detailTodos, setDetailTodos, detailTask, setDeta
                 </div>
             </form>
             <ul>
-                {DetailAreaFilter()}
+                {initDetailArea()}
             </ul>
         </div>
     );

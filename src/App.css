@@ -11,6 +11,7 @@
 
 .header h1 {
     margin: 0 0 0;
+    font-size: 1.2em;
 }
 
 .task-list__head {
@@ -31,9 +32,14 @@
     border-bottom: none;
 }
 
+.task-list__body .modal-btn button {
+    margin: 0 75px 0 0;
+    min-width: 55px;
+}
+
 .task-text {
-    margin: 0px 20px 0;
-    width: calc(100% - 140px);
+    margin: 0px 10px 0;
+    width: calc(100% - 170px);
 }
 
 .task-remove {
@@ -63,7 +69,6 @@
 }
 
 .input-form {
-    margin: 0 0 40px;
     background: #f9f3ee;
     padding: 40px 0 40px;
     border-top: 1px solid #d7d2cd;
@@ -122,7 +127,7 @@
 
 .content{
     z-index:2;
-    width:50%;
+    width: 85%;
     padding: 1em;
     background:#fff;
 }
@@ -153,13 +158,82 @@
 button{
     width: auto;
     height: 40px;
-    border-radius: 10px;
-    color: #555555;
-    background-color: #C4D7D3;
     border: none;
-    box-shadow: 0 3px 6px 3px rgba(107,107,107,.10);
+    border-radius: 7px;
+    color: #555555;
+    background-color: #efefef;
+    border-bottom: solid 4px #868686;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+.task-list__body .modal-btn .content button {
+    margin: 0 0 0 0;
+    min-width: 55px;
+}
+
+.task-list__body .modal-btn .content .input-form .btn {
+    right: 5px;
 }
 
 .modal-content{
     color: #555555;
+}
+
+.task-list__body .modal-btn .content .close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+    margin: 0 6px 0 auto;
+}
+
+/* auth*/
+.auth-container {
+    justify-content: right;
+    padding: 0 10px;
+    /* border-bottom: 1px solid #d7d2cd; */
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.auth-inner {
+    max-width: 80%;
+    margin: 50px auto 50px;
+}
+
+.auth-entry {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0 0;
+}
+
+.auth-inner button{
+    margin: 25px 0 0 auto;
+    display: block;
+}
+
+.auth-inner p{
+    text-align: right;
+    margin: 40px 0 0;
+}
+
+.auth-inner p a{
+    text-decoration: none;
+}
+
+.auth-container button {
+    margin: 7px 5px 7px;
+    min-width: 82px;
+}
+
+.auth-container p {
+    max-width: 56%;
+    margin: 6px 20px 6px 40px;
 }

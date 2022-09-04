@@ -41,8 +41,8 @@ const Login = () => {
       ) : (
         <>
           <h1>ログインページ</h1>
-          <form onSubmit={handleSubmit}>
-            <div>
+          <form className="auth-inner" onSubmit={handleSubmit}>
+            <div className="auth-entry">
               <label>メールアドレス</label>
               <input
                name="email"
@@ -51,7 +51,7 @@ const Login = () => {
                onChange={(e) => setLoginEmail(e.target.value)}
               />
             </div>
-            <div>
+            <div className="auth-entry">
               <label>パスワード</label>
               <input
                 name="password"
@@ -62,7 +62,7 @@ const Login = () => {
             </div>
             <button>ログイン</button>
             {/* ↓リンクを追加 */}
-            <p>新規登録は<Link to={`/register/`}>こちら</Link></p>
+            <p><Link to={`/register/`}><button>新規登録はこちら</button></Link></p>
           </form>
         </>
       )}

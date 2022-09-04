@@ -36,10 +36,13 @@ const Mypage = () => {
             <Navigate to={`/login/`} />
           ) : (
             <>
-              <h1>マイページ</h1>
-              <p>{user?.email}</p>
-              <button onClick={logout}>ログアウト</button>
-              <TodoPage/>
+              <TodoPage user={user} setUser={setUser}/>
+
+              <div className="auth-container">
+                {/* <h1>マイページ</h1> */}
+                {/* <p>{user?.email}</p> */}
+                <button onClick={logout}>ログアウト</button>
+              </div>
             </>
           )}
         </>

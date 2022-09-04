@@ -12,6 +12,10 @@ type ModalProps = {
     modalButton: number,
     detailTask:string,
     setDetailTask:string,
+    userData: any,
+    setuserData: any,
+    todos: any,
+    setTodos: any
 }
 
 const Modal = ( props: ModalProps ) => {
@@ -22,10 +26,10 @@ const Modal = ( props: ModalProps ) => {
     if (props.show && props.index === props.modalButton) {
         return (
             <div key={props.index} id={`modal-target-${props.index + 1}`} className='overlay' onClick={closeModal}>
-                <div className='content' onClick={(e) => e.stopPropagation()}>
+                <div className='content inner' onClick={(e) => e.stopPropagation()}>
 
-                    <AddDetailTodo detailTodos={props.detailTodos} setDetailTodos={props.setDetailTodos} index={props.index} detailTask={props.detailTask} setDetailTask={props.setDetailTask}/>
-                    <button onClick={() => props.setShow(false)}>Close</button>
+                    <AddDetailTodo detailTodos={props.detailTodos} setDetailTodos={props.setDetailTodos} index={props.index} detailTask={props.detailTask} setDetailTask={props.setDetailTask} userData={props.userData} setuserData={props.setuserData} todos={props.todos} setTodos={props.setTodos}/>
+                    <button className="close-btn" onClick={() => props.setShow(false)}>Close</button>
                 </div>
             </div>
         );

@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { useForm } from 'react-hook-form'
+// eslint-disable-next-line no-unused-vars
+import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, orderBy, limit, endAt, getDoc, getDocFromCache, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
+import { firebaseApp } from "../../firebase/firebase.config";
 
-const AddTodo = ({ setTodos, detailTodos, setDetailTodos }) => {
+const AddTodo = ({ todos, setTodos, detailTodos, setDetailTodos, user, setUser, userData, setuserData }) => {
     // const { register } = useForm();
     
     const [task, setTask] = useState('');
@@ -9,7 +12,24 @@ const AddTodo = ({ setTodos, detailTodos, setDetailTodos }) => {
     const handleNewTask = (event) => {
         setTask(event.target.value);
     };
-    
+
+    // ログインしているユーザーのmailからfirestoreの該当usersドキュメント取得
+    let userMail = user.user.user.email
+    const userRef = collection(firebaseApp.firestore, "users");
+    const seachUser = query(userRef, where("mail", "==", userMail));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        const userId = async() => {
+            const querySnapshot = await getDocs(seachUser);
+
+            querySnapshot.forEach((doc) => {
+                setuserData(doc.id)
+            });
+        }
+        userId()
+    }, [seachUser, setuserData]);
+
     const handleSubmit = (event) => { 
         event.preventDefault();
         if (task === '') {
@@ -17,9 +37,22 @@ const AddTodo = ({ setTodos, detailTodos, setDetailTodos }) => {
             return;
         }; 
 
+        // todoにtaskの内容を追加する
+        setTodos((todos) => [...todos, { task, isCompleted: false }]);
+        
+        // database(firestoreの参照)
+        const firestoreTodos = collection(firebaseApp.firestore, 'users', userData, 'todo');
+        
+        // eslint-disable-next-line no-unused-vars
+        setDoc(doc(firestoreTodos, `${task}`),{
+            task: task,
+            isCompleted: false,
+            detail: 'サンプルテキスト',
+        });
+
         // モーダルの中の詳細テキストの初期値を入力
         setDetailTodos((detailTodos) => [...detailTodos, { detailTask: 'サンプルテキストAddTodo' }]);
-        setTodos((todos) => [...todos, { task, isCompleted: false }]);
+
         setTask('');
     };
 
