@@ -2,15 +2,10 @@ import { useState, useEffect } from 'react';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import Header from '../../common/Header';
-// import Auth from '../../firebase/auth/firebase.auth';
 import { firebaseApp } from "../../firebase/firebase.config";
-// eslint-disable-next-line no-unused-vars
-import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, orderBy, limit, endAt, getDoc, getDocFromCache, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
-// eslint-disable-next-line no-unused-vars
-import { async } from '@firebase/util';
+import { collection, getDocs } from "firebase/firestore";
 
 const Todo = (user, setUser) => {
-
     const [ userData, setuserData ] = useState('');
     
     // 現在ログインしているuserのfirestoreに登録済みtodoを取得してstateに登録
@@ -47,24 +42,11 @@ const Todo = (user, setUser) => {
 
     const [todos, setTodos] = useState([]);
 
-    // モーダルの中の詳細テキスト
-    const detailInitialState = [
-        {
-            detail: 'サンプルテキスト01'
-        },
-        {
-            detail: 'サンプルテキスト02'
-        },
-    ]
-    
-    const [detailTodos, setDetailTodos] = useState(detailInitialState);
-
-
     return (
         <div>
         <Header />
-        <TodoList todos={todos} setTodos={setTodos} detailTodos={detailTodos} setDetailTodos={setDetailTodos} userData={userData} setuserData={setuserData}/>
-        <AddTodo todos={todos} setTodos={setTodos} detailTodos={detailTodos} setDetailTodos={setDetailTodos}  user={user} setUser={setUser} userData={userData} setuserData={setuserData}/>
+        <TodoList todos={todos} setTodos={setTodos} userData={userData} setuserData={setuserData}/>
+        <AddTodo todos={todos} setTodos={setTodos}  user={user} setUser={setUser} userData={userData} setuserData={setuserData}/>
         </div>
     );
 };

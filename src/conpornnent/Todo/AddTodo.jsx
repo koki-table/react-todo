@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 // import { useForm } from 'react-hook-form'
-// eslint-disable-next-line no-unused-vars
-import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, orderBy, limit, endAt, getDoc, getDocFromCache, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
+import { collection, getDocs, setDoc, doc, query, where } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebase.config";
 
-const AddTodo = ({ todos, setTodos, detailTodos, setDetailTodos, user, setUser, userData, setuserData }) => {
+const AddTodo = ({ todos, setTodos, user, setUser, userData, setuserData }) => {
     // const { register } = useForm();
     
     const [task, setTask] = useState('');
@@ -49,9 +48,6 @@ const AddTodo = ({ todos, setTodos, detailTodos, setDetailTodos, user, setUser, 
             isCompleted: false,
             detail: 'サンプルテキスト',
         });
-
-        // モーダルの中の詳細テキストの初期値を入力
-        setDetailTodos((detailTodos) => [...detailTodos, { detailTask: 'サンプルテキストAddTodo' }]);
 
         setTask('');
     };

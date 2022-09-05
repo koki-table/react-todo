@@ -1,9 +1,8 @@
-// import { useState } from 'react';
 // import { useForm } from 'react-hook-form'
-import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, orderBy, limit, endAt, getDoc, getDocFromCache, updateDoc, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
+import { collection, doc, updateDoc } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebase.config";
 
-const AddDetailTodo = ({ index, detailTodos, setDetailTodos, detailTask, setDetailTask, userData, setuserData, todos, setTodos }) => {
+const AddDetailTodo = ({ index, detailTask, setDetailTask, userData, setuserData, todos, setTodos }) => {
     // const { register } = useForm();
 
     // database(firestoreの参照)

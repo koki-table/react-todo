@@ -1,14 +1,9 @@
-// import React, { useEffect } from 'react';
 import Modal from "../Modal/Index";
-import { useEffect, useState } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { collection, deleteDoc, addDoc, getDocs, setDoc, doc, updateDoc, orderBy, limit, endAt, getDoc, getDocFromCache, onSnapshot, startAt, query, where, collectionGroup } from "firebase/firestore";
+import { useState } from 'react';
+import { deleteDoc, doc } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebase.config";
 
-const TodoList = ({ todos, setTodos, detailTodos, setDetailTodos, userData, setuserData }) => {
-
-    // database(firestoreの参照)
-    // const firestoreTodos = collection(firebaseApp.firestore, 'users', userData, 'todo');
+const TodoList = ({ todos, setTodos, userData, setuserData }) => {
 
     // 追加したタスクを消す
     const handleRemoveTask = async(index) => {
@@ -18,11 +13,6 @@ const TodoList = ({ todos, setTodos, detailTodos, setDetailTodos, userData, setu
         // 取得したdataの中から該当のindex番号のdataを削除
         deleteTodos.splice(index, 1);
         await setTodos(deleteTodos);
-
-        // detailTodos(モーダル内)のdataも削除したtodosのindexに合うように新しい配列を生成
-        setDetailTodos(
-            detailTodos.filter((detailTodo, detailTodoIndex) => (detailTodoIndex !== index))
-        )
 
         // firestoreのドキュメントを削除
         await deleteDoc(doc(firebaseApp.firestore, 'users', userData, 'todo', todos[index].task));
@@ -42,13 +32,6 @@ const TodoList = ({ todos, setTodos, detailTodos, setDetailTodos, userData, setu
             return todo;
         });
         setTodos(newTodos);
-
-        console.log(todos[index].task);
-
-        // firestoreのフィールド更新
-        // await updateDoc(doc(firestoreTodos, todos[index].task),{
-        //     isCompleted: true,
-        // });
     };
 
     const [show, setShow] = useState(false);
@@ -94,7 +77,7 @@ const TodoList = ({ todos, setTodos, detailTodos, setDetailTodos, userData, setu
                         {/* モーダル */}
                         <div className="modal-btn">
                             <button id={`modal-trigger-${index + 1}`} onClick={() => openModal(index)}>詳細</button>
-                            <Modal index={index} show={show} setShow={setShow} modalButton={modalButton} detailTodos={detailTodos} setDetailTodos={setDetailTodos} detailTask={detailTask} setDetailTask={setDetailTask} userData={userData} setuserData={setuserData} todos={todos} setTodos={setTodos}/>
+                            <Modal index={index} show={show} setShow={setShow} modalButton={modalButton} detailTask={detailTask} setDetailTask={setDetailTask} userData={userData} setuserData={setuserData} todos={todos} setTodos={setTodos}/>
                         </div>
                     </li>
                 ))}
