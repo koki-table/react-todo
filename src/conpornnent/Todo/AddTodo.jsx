@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // import { useForm } from 'react-hook-form'
-import { collection, setDoc, doc, query, where } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebase.config";
 
 const AddTodo = ({ setTodos, user, userData, setuserData }) => {

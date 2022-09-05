@@ -52,8 +52,8 @@ const Register = () => {
       ) : (
         <>
           <h1>新規登録</h1>
-          <form onSubmit={handleSubmit}>
-            <div>
+          <form className="auth-inner" onSubmit={handleSubmit}>
+            <div className="auth-entry">
               <label>メールアドレス</label>
               <input
                 name="email"
@@ -62,7 +62,7 @@ const Register = () => {
                 onChange={(e) => setRegisterEmail(e.target.value)}
               />
             </div>
-            <div>
+            <div className="auth-entry">
               <label>パスワード</label>
               <input
                 name="password"
@@ -73,7 +73,7 @@ const Register = () => {
             </div>
             <button>登録する</button>
             {/* ↓リンクを追加 */}
-            <p>ログインは<Link to={`/login/`}>こちら</Link></p>
+            <p><Link to={`/login/`}><button>ログインはこちら</button></Link></p>
           </form>
         </>
       )}
