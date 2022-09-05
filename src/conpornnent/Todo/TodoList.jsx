@@ -1,6 +1,6 @@
 import Modal from "../Modal/Index";
 import { useState } from 'react';
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc, collection } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebase.config";
 
 const TodoList = ({ todos, setTodos, userData, setuserData }) => {
@@ -32,6 +32,19 @@ const TodoList = ({ todos, setTodos, userData, setuserData }) => {
             return todo;
         });
         setTodos(newTodos);
+
+        // database(firestoreの参照)
+        const firestoreTodos = collection(firebaseApp.firestore, 'users', userData, 'todo');
+
+        const firestoreDateTask = async() => {
+
+            // firestoreのフィールド更新
+            await updateDoc(doc(firestoreTodos, todos[index].task),{
+                isCompleted: true,
+            });
+        };
+
+        firestoreDateTask()
     };
 
     const [show, setShow] = useState(false);

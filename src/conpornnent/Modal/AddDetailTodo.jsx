@@ -26,8 +26,6 @@ const AddDetailTodo = ({ index, detailTask, setDetailTask, userData, setuserData
             todos.map((todo, todoIndex) => (todoIndex === index ? { detail : detailTask, isCompleted: todo.isCompleted, task : todo.task } : todo))
         )
 
-        console.log(todos[index].task);
-
         // firestoreのフィールド更新
         await updateDoc(doc(firestoreTodos, todos[index].task),{
             detail: detailTask,

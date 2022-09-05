@@ -3,21 +3,34 @@ import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import Header from '../../common/Header';
 import { firebaseApp } from "../../firebase/firebase.config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 const Todo = (user, setUser) => {
     const [ userData, setuserData ] = useState('');
+
+    // ログインしているユーザーのmailからfirestoreの該当usersドキュメント取得
+    let userMail = user.user.user.email
+    const userRef = collection(firebaseApp.firestore, "users");
+    const seachUser = query(userRef, where("mail", "==", userMail));
+
+    const userId = async() => {
+        const querySnapshot = await getDocs(seachUser);
+
+        querySnapshot.forEach((doc) => {
+            setuserData(doc.id)
+        });
+    }
+    userId()
     
     // 現在ログインしているuserのfirestoreに登録済みtodoを取得してstateに登録
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const addColection = async() => {
 
-            // firestoreのcollectionを参照
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            const tasksCollectionRef = collection(firebaseApp.firestore, 'users', userData, 'todo');
+            if(userData) {
+                // firestoreのcollectionを参照
+                const tasksCollectionRef = collection(firebaseApp.firestore, 'users', userData, 'todo');
 
-            if(tasksCollectionRef) {
                 // 参照したdataをstateに登録
                 const snapShots = await getDocs(tasksCollectionRef)
                 snapShots.forEach((doc) => {
@@ -41,6 +54,8 @@ const Todo = (user, setUser) => {
     // ];
 
     const [todos, setTodos] = useState([]);
+
+    
 
     return (
         <div>

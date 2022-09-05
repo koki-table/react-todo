@@ -23,7 +23,6 @@ const Register = () => {
         firebaseApp.fireauth,
         registerEmail,
         registerPassword,
-        console.log("ffff")
       );
     } catch(error) {
       alert("正しく入力してください");

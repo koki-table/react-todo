@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 // import { useForm } from 'react-hook-form'
-import { collection, getDocs, setDoc, doc, query, where } from "firebase/firestore";
+import { collection, setDoc, doc, query, where } from "firebase/firestore";
 import { firebaseApp } from "../../firebase/firebase.config";
 
-const AddTodo = ({ todos, setTodos, user, setUser, userData, setuserData }) => {
+const AddTodo = ({ setTodos, user, userData, setuserData }) => {
     // const { register } = useForm();
     
     const [task, setTask] = useState('');
@@ -11,23 +11,6 @@ const AddTodo = ({ todos, setTodos, user, setUser, userData, setuserData }) => {
     const handleNewTask = (event) => {
         setTask(event.target.value);
     };
-
-    // ログインしているユーザーのmailからfirestoreの該当usersドキュメント取得
-    let userMail = user.user.user.email
-    const userRef = collection(firebaseApp.firestore, "users");
-    const seachUser = query(userRef, where("mail", "==", userMail));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {
-        const userId = async() => {
-            const querySnapshot = await getDocs(seachUser);
-
-            querySnapshot.forEach((doc) => {
-                setuserData(doc.id)
-            });
-        }
-        userId()
-    }, [seachUser, setuserData]);
 
     const handleSubmit = (event) => { 
         event.preventDefault();
