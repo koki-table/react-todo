@@ -6,6 +6,7 @@ node v16.14.0
 typescript v4.5.5
 `npm installを実行した後、`package.json`の`scripts`を確認してください。
 
-エラーが出た場合は`npm install -g npm`にて対応
+## インストール・ビルド・開発 エラー対応
+`npm install -g npm`でパスを通す
 
-firebase使用にはディレクトリ直下に.env.localファイル（firebase初期設定記載）が必要
+`invalid-api-key`エラーが出るので、.env（firebase初期設定記載）ファイルをルートディレクトリ直下に配置する
