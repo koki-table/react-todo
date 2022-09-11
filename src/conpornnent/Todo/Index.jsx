@@ -7,6 +7,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 
 const Todo = (user, setUser) => {
     const [ userData, setuserData ] = useState('');
+    const [todos, setTodos] = useState([]);
 
     // ログインしているユーザーのmailからfirestoreの該当usersドキュメント取得
     let userMail = user.user.user.email
@@ -22,7 +23,7 @@ const Todo = (user, setUser) => {
     }
     userId()
     
-    // 現在ログインしているuserのfirestoreに登録済みtodoを取得してstateに登録
+    // 現在ログインしているuserのfirestoreの登録済みtodoを取得してstateに登録
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const addColection = async() => {
@@ -36,26 +37,14 @@ const Todo = (user, setUser) => {
                 snapShots.forEach((doc) => {
                     setTodos((setingTasks) => [...setingTasks, doc.data()]);
                 })
+
             }
         };
         // eslint-disable-next-line no-unused-expressions
         addColection()
     }, [userData]);
-
-    // const initialState = [
-    //     {
-    //         task: '最初のTodo',
-    //         isCompleted: true,
-    //     },
-    //     {
-    //         task: '次のTodo',
-    //         isCompleted: false,
-    //     },
-    // ];
-
-    const [todos, setTodos] = useState([]);
-
     
+    console.log(todos);
 
     return (
         <div>

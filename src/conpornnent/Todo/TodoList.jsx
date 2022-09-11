@@ -18,6 +18,8 @@ const TodoList = ({ todos, setTodos, userData, setuserData }) => {
         await deleteDoc(doc(firebaseApp.firestore, 'users', userData, 'todo', todos[index].task));
     };
 
+    // console.log(todos[0].isCompleted);
+
     // タスク完了のチェック
     const handleUpdateTask = (index) => {
 
